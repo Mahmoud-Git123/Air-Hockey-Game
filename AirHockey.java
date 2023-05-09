@@ -20,6 +20,9 @@ public class AirHockey{
     
     Text textObj = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
     
+  }
+}
+    
           
                                 
       
