@@ -1,8 +1,5 @@
 public class AirHockey{
   public static void main (String args[]){
-    
-    //GIT TEST
-    
     //CREATING OBJECTS
     
     GameArena gameObj = new GameArena(900, 500, true);
@@ -23,23 +20,25 @@ public class AirHockey{
                                 
     Line lineObj = new Line (450, 87.5, 450, 412.5, 1, "BLUE", 1);
     
-    Text textObj = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
-    
+    Text welcomeTextObj = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
+
     //ADDING
-    
+
     gameObj.addRectangle(goalObj1); //adding goal rectangle 1
     gameObj.addRectangle(goalObj2); //adding goal rectangle 2
     
-    blueRecObj.setXPosition(gameObj.getWidth() - blueRecObj.getWidth()/2); //centering the blue rectangle
-    blueRecObj.setYPosition(gameObj.getHeight() - blueRecObj.getHeight()/2); //centering the blue rectangle
+    blueRecObj.setXPosition((gameObj.getWidth() - blueRecObj.getWidth())/2); //centering the blue rectangle
+    blueRecObj.setYPosition((gameObj.getHeight() - blueRecObj.getHeight())/2); //centering the blue rectangle
     
-    whiteRecObj.setXPosition(gameObj.getWidth() - whiteRecObj.getWidth()/2); //centering the white rectangle
-    whiteRecObj.setYPosition(gameObj.getHeight() - whiteRecObj.getHeight()/2); //centering the white rectangle
+    whiteRecObj.setXPosition((gameObj.getWidth() - whiteRecObj.getWidth())/2); //centering the white rectangle
+    whiteRecObj.setYPosition((gameObj.getHeight() - whiteRecObj.getHeight())/2); //centering the white rectangle
     
+
+
     gameObj.addRectangle(blueRecObj); //adding blue rectangle
     gameObj.addRectangle(whiteRecObj); //adding white rectangle
     
-    gameObj.addText(textObj); //adding text
+    gameObj.addText(welcomeTextObj); //adding text
     
     gameObj.addBall(ballObj1); //adding ball 1
     gameObj.addBall(ballObj2); //adding ball 2
@@ -53,9 +52,9 @@ public class AirHockey{
     
     //MOVEMENT
     
-      //BALL 1
+    //BALL 1
 
-      //BALL 2
+    //BALL 2
     
       
     
