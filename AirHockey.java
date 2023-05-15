@@ -50,11 +50,68 @@ public class AirHockey{
     
     gameObj.addLine(lineObj); //adding line
     
-    //MOVEMENT
-    
-    //BALL 1
+    /*MOVEMENT*/
 
-    //BALL 2
+    //PLAYER 1
+    while (true){
+      
+      if (ballObj2.getXPosition() < (837.5 - 25)){ //setting the x boundries (900 [game width] - 62.5 [gap between game rectangle and white rectangle]) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.rightPressed()){ //if the right arrow button is pressed
+          ballObj2.move(6, 0); //ball moves 6 in positive x direction (i.e. to the right)
+        }
+      }
+
+      if (ballObj2.getXPosition() > (450 + 25)){ //setting the x boundires ((900[game width/2 = 450)) of the ball so it doesn't pass middle line, ball radius is 25.
+        if (gameObj.leftPressed()){ //if the left arrow button is pressed
+          ballObj2.move(-6, 0); //ball moves 6 in negative x direction (i.e. to the left)
+        }
+      }
+      
+      if (ballObj2.getYPosition() > (87.5 + 25)){ //setting the y boundries ((500[game height]-325[white rectangle height])/2 = 87.5) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.upPressed()){ //if the up arrow button is pressed
+          ballObj2.move(0, -6); //ball moves 6 in negative y direction (i.e upwards)
+        }
+      }
+
+      if (ballObj2.getYPosition() < (412.5 - 25)){ //setting the y boundries (500[game height] - 87.5[gap between game rectangle and white rectangle] = 412.5)  of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.downPressed()){ //if the down arrow button is pressed
+          ballObj2.move(0, 6); //ball moves 6 in positive y direction (i.e. downwards)
+        }
+      }
+
+      
+
+      //PLAYER 2
+
+      if (ballObj1.getXPosition() > (62.5 + 25)){ //setting the x boundries (gap between game rectangle and white rectangle is +62.5 in x direction from the right) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.letterPressed('a')){ //if the 'a' key is pressed
+          ballObj1.move(-6, 0); //ball moves 6 in positive x direction (i.e. to the right)
+        }
+      }
+
+      if (ballObj1.getXPosition() < (450 - 25)){ //setting the x boundires (900[game width/2) of the ball so it doesn't pass middle line, ball radius is 25.
+        if (gameObj.letterPressed('d')){ //if the 'd' key is pressed
+          ballObj1.move(6, 0); //ball moves 6 in negative x direction (i.e. to the left)
+        }
+      }
+    
+      if (ballObj1.getYPosition() > (87.5 + 25)){ //setting the y boundries ((500[game height]-325[white rectangle height])/2 = 87.5) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.letterPressed('w')){ //if the 'w' key is pressed
+          ballObj1.move(0, -6); //ball moves 6 in negative y direction (i.e upwards)
+        }
+      }
+
+      if (ballObj1.getYPosition() < (412.5 - 25)){ //setting the y boundries (500[game height] - 87.5[gap between game rectangle and white rectangle])  of the ball so it doesn't go outside the game rectangle, ball radius is 25.
+        if (gameObj.letterPressed('s')){ //if the 's' key is pressed
+          ballObj1.move(0, 6); //ball moves 6 in positive y direction (i.e. downwards)
+        }
+      }
+      
+      gameObj.pause();
+      
+    }
+
+
     
       
     
