@@ -22,8 +22,8 @@ public class AirHockey{
     
     Text mainText = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
 
-    Text player2ScoreText = new Text ("0", 45, 865, 250, "WHITE", 1);
-    Text player1ScoreText = new Text ("0", 45, 15, 250, "WHITE", 1);
+    Text player2ScoreText = new Text ("0", 35, 865, 250, "WHITE", 1);
+    Text player1ScoreText = new Text ("0", 35, 15, 250, "WHITE", 1);
 
     double xPuckSpeed = 0;
     double yPuckSpeed = 0;
@@ -155,12 +155,15 @@ public class AirHockey{
         yPuckSpeed = yPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
       }
       
+      xPuckSpeed = xPuckSpeed*0.988; //adding friction
+      yPuckSpeed = yPuckSpeed*0.988; //adding friction
+
       puckObj.move(xPuckSpeed, yPuckSpeed); //puck moves depending on the speed given from  the above if statements
 
       /*GOALS */
 
       //PLAYER 1
-      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() < 837.5 && puckObj.getXPosition() > 827.5){ //boundies of player 2's goal
+      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() > 827.5 && puckObj.getXPosition() < 837.5){ //boundies of player 2's goal
 
         //PUCK/MALLETS REMOVING
         gameObj.removeBall(puckObj); //removes puck
@@ -168,7 +171,6 @@ public class AirHockey{
         gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
         gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
 
-        gameObj.pause();
 
         //TEXT
         mainText.setText("Player 1 wins the round!"); //changing text to show player 1 scoring
@@ -204,7 +206,6 @@ public class AirHockey{
         gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
         gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
 
-        gameObj.pause();
 
         //TEXT
         mainText.setText("Player 2 wins the round!"); //changing text to show player 2 scoring
