@@ -22,8 +22,8 @@ public class AirHockey{
     
     Text mainText = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
 
-    Text player2ScoreText = new Text ("0", 35, 865, 250, "WHITE", 1);
-    Text player1ScoreText = new Text ("0", 35, 15, 250, "WHITE", 1);
+    Text player2ScoreText = new Text ("0", 25, 860, 250, "WHITE", 2);
+    Text player1ScoreText = new Text ("0", 25, 8, 250, "WHITE", 2);
 
     double xPuckSpeed = 0;
     double yPuckSpeed = 0;
