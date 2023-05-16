@@ -22,6 +22,11 @@ public class AirHockey{
     
     Text welcomeTextObj = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
 
+    double xPuckSpeed = 0;
+    double yPuckSpeed = 0;
+
+
+
     //ADDING
 
     gameObj.addRectangle(goalObj1); //adding goal rectangle 1
@@ -68,7 +73,7 @@ public class AirHockey{
       }
       
       if (ballObj2.getYPosition() > (87.5 + 25)){ //setting the y boundries ((500[game height]-325[white rectangle height])/2 = 87.5) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
-        if (gameObj.upPressed()){ //if the up arrow button is pressed
+        if (gameObj.upPressed()){ //if the up arrpuckObjow button is pressed
           ballObj2.move(0, -6); //ball moves 6 in negative y direction (i.e upwards)
         }
       }
@@ -106,7 +111,37 @@ public class AirHockey{
           ballObj1.move(0, 6); //ball moves 6 in positive y direction (i.e. downwards)
         }
       }
+
       
+      /*COLLISIONS */
+
+      //PLAYER 1
+      if (puckObj.collides(ballObj2)){ //if player 2's ball/mallett hits the puck
+
+        //Creating an object of the physics class for player 1, where xpseed 1 and yspeed 1 are the puck's speeds and ball/mallet speeds is 15
+        Physics physicsObjPlayer1 = new Physics(ballObj2.getXPosition(), puckObj.getXPosition(),ballObj2.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
+
+        physicsObjPlayer1.deflect(); //deflection method in phyiscs class
+
+        xPuckSpeed = physicsObjPlayer1.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
+        yPuckSpeed = physicsObjPlayer1.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
+      }
+      
+
+      //PLAYER 2
+      if(puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
+
+        //Creating an object of the physics class for player 2, where xpseed1 and yspeed1 are the puck's speeds and ball/mallet speeds is 15
+        Physics physicsObjPlayer2 = new Physics(ballObj1.getXPosition(), puckObj.getXPosition(),ballObj1.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
+
+        physicsObjPlayer2.deflect(); //deflection method in phyiscs class
+
+        xPuckSpeed = physicsObjPlayer2.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
+        yPuckSpeed = physicsObjPlayer2.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
+      }
+
+      puckObj.move(xPuckSpeed, yPuckSpeed); //puck moves depending on the speed given from  the above if statements
+
       gameObj.pause();
       
     }
