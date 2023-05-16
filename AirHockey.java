@@ -20,7 +20,10 @@ public class AirHockey{
                                 
     Line lineObj = new Line (450, 87.5, 450, 412.5, 1, "BLUE", 1);
     
-    Text welcomeTextObj = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
+    Text mainText = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
+
+    Text player2ScoreText = new Text ("0", 45, 865, 250, "WHITE", 1);
+    Text player1ScoreText = new Text ("0", 45, 15, 250, "WHITE", 1);
 
     double xPuckSpeed = 0;
     double yPuckSpeed = 0;
@@ -43,7 +46,7 @@ public class AirHockey{
     gameObj.addRectangle(blueRecObj); //adding blue rectangle
     gameObj.addRectangle(whiteRecObj); //adding white rectangle
     
-    gameObj.addText(welcomeTextObj); //adding text
+    gameObj.addText(mainText); //adding text
     
     gameObj.addBall(ballObj1); //adding ball 1
     gameObj.addBall(ballObj2); //adding ball 2
@@ -55,9 +58,12 @@ public class AirHockey{
     
     gameObj.addLine(lineObj); //adding line
     
+    gameObj.addText(player1ScoreText);
+    gameObj.addText(player2ScoreText);
+
     /*MOVEMENT*/
 
-    //PLAYER 1
+    //PLAYER 2
     while (true){
       
       if (ballObj2.getXPosition() < (837.5 - 25)){ //setting the x boundries (900 [game width] - 62.5 [gap between game rectangle and white rectangle]) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
@@ -86,7 +92,7 @@ public class AirHockey{
 
       
 
-      //PLAYER 2
+      //PLAYER 1
 
       if (ballObj1.getXPosition() > (62.5 + 25)){ //setting the x boundries (gap between game rectangle and white rectangle is +62.5 in x direction from the right) of the ball so it doesn't go outside the game rectangle, ball radius is 25.
         if (gameObj.letterPressed('a')){ //if the 'a' key is pressed
@@ -115,31 +121,32 @@ public class AirHockey{
       
       /*COLLISIONS*/
 
-      //PLAYER 1
+      //PLAYER 2
       if (puckObj.collides(ballObj2)){ //if player 2's ball/mallett hits the puck
 
         //Creating an object of the physics class for player 1, where xpseed 1 and yspeed 1 are the puck's speeds and ball/mallet speeds is 15
-        Physics physicsObjPlayer1 = new Physics(ballObj2.getXPosition(), puckObj.getXPosition(),ballObj2.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
-
-        physicsObjPlayer1.deflect(); //deflection method in phyiscs class
-
-        xPuckSpeed = physicsObjPlayer1.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
-        yPuckSpeed = physicsObjPlayer1.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
-      }
-      
-
-      //PLAYER 2
-      if (puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
-
-        //Creating an object of the physics class for player 2, where xpseed1 and yspeed1 are the puck's speeds and ball/mallet speeds is 15
-        Physics physicsObjPlayer2 = new Physics(ballObj1.getXPosition(), puckObj.getXPosition(),ballObj1.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
+        Physics physicsObjPlayer2 = new Physics(ballObj2.getXPosition(), puckObj.getXPosition(),ballObj2.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
 
         physicsObjPlayer2.deflect(); //deflection method in phyiscs class
 
         xPuckSpeed = physicsObjPlayer2.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
         yPuckSpeed = physicsObjPlayer2.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
       }
+      
 
+      //PLAYER 1
+      if (puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
+
+        //Creating an object of the physics class for player 2, where xpseed1 and yspeed1 are the puck's speeds and ball/mallet speeds is 15
+        Physics physicsObjPlayer1 = new Physics(ballObj1.getXPosition(), puckObj.getXPosition(),ballObj1.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
+
+        physicsObjPlayer1.deflect(); //deflection method in phyiscs class
+
+        xPuckSpeed = physicsObjPlayer1.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
+        yPuckSpeed = physicsObjPlayer1.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
+      }
+
+      //Setting puck boundries
       if (puckObj.getXPosition() < 70 || puckObj.getXPosition() > 830){
         xPuckSpeed = xPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
       }      
@@ -149,6 +156,82 @@ public class AirHockey{
       }
       
       puckObj.move(xPuckSpeed, yPuckSpeed); //puck moves depending on the speed given from  the above if statements
+
+      /*GOALS */
+
+      //PLAYER 1
+      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() < 837.5 && puckObj.getXPosition() > 827.5){ //boundies of player 2's goal
+
+        //PUCK/MALLETS REMOVING
+        gameObj.removeBall(puckObj); //removes puck
+
+        gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
+        gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
+
+        gameObj.pause();
+
+        //TEXT
+        mainText.setText("Player 1 wins the round!"); //changing text to show player 1 scoring
+        mainText.setColour("GREEN");
+        int x = Integer.valueOf(player1ScoreText.getText()) + 1;  //converting goal value to an integer and adding one to it
+        player1ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
+        
+        //PUCK/MALLETS ADDING
+        xPuckSpeed = 0;
+        yPuckSpeed =0;
+        puckObj.setXPosition(485); //(900/2) + 35 (center circle radius) = 485
+        puckObj.setYPosition(250); //500/2 = 250
+
+        ballObj1.setXPosition(175); //resets the position of player 1's  ball/mallet
+        ballObj1.setYPosition(250); //resets the postion of player 1's ball/mallet
+
+        ballObj2.setXPosition(725); //resets the position of player 2's  ball/mallet
+        ballObj2.setYPosition(250); //resets the postion of player 2's ball/mallet
+
+        gameObj.addBall(puckObj); //adding back the puck
+        gameObj.addBall(ballObj1); //adding back player 1
+        gameObj.addBall(ballObj2); //adding back player 2
+
+
+      }
+
+      //PLAYER 2
+      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() > 62.5 && puckObj.getXPosition() < 72.5){ //boundries of player 1's goal
+
+        //PUCK/MALLETS REMOVING
+        gameObj.removeBall(puckObj); //removes puck
+
+        gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
+        gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
+
+        gameObj.pause();
+
+        //TEXT
+        mainText.setText("Player 2 wins the round!"); //changing text to show player 2 scoring
+        mainText.setColour("YELLOW");
+        int x = Integer.valueOf(player2ScoreText.getText()) + 1;  //converting value to an integer and adding one to it
+        player2ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
+        
+        //PUCK/MALLETS ADDING
+        xPuckSpeed = 0;
+        yPuckSpeed =0;
+        puckObj.setXPosition(415); //(900/2) - 35 (center circle radius) = 380
+        puckObj.setYPosition(250); //500/2 = 250
+
+        ballObj1.setXPosition(175); //resets the position of player 1's  ball/mallet
+        ballObj1.setYPosition(250); //resets the postion of player 1's ball/mallet
+
+        ballObj2.setXPosition(725); //resets the position of player 2's  ball/mallet
+        ballObj2.setYPosition(250); //resets the postion of player 2's ball/mallet
+
+        gameObj.addBall(puckObj); //adding back the puck
+        gameObj.addBall(ballObj1); //adding back player 1
+        gameObj.addBall(ballObj2); //adding back player 2
+
+
+      }
+
+      
 
       gameObj.pause();
       
