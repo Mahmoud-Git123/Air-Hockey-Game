@@ -113,7 +113,7 @@ public class AirHockey{
       }
 
       
-      /*COLLISIONS */
+      /*COLLISIONS*/
 
       //PLAYER 1
       if (puckObj.collides(ballObj2)){ //if player 2's ball/mallett hits the puck
@@ -129,7 +129,7 @@ public class AirHockey{
       
 
       //PLAYER 2
-      if(puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
+      if (puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
 
         //Creating an object of the physics class for player 2, where xpseed1 and yspeed1 are the puck's speeds and ball/mallet speeds is 15
         Physics physicsObjPlayer2 = new Physics(ballObj1.getXPosition(), puckObj.getXPosition(),ballObj1.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
@@ -140,6 +140,14 @@ public class AirHockey{
         yPuckSpeed = physicsObjPlayer2.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
       }
 
+      if (puckObj.getXPosition() < 70 || puckObj.getXPosition() > 830){
+        xPuckSpeed = xPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
+      }      
+
+      if (puckObj.getYPosition() > 405 || puckObj.getYPosition() < 95){
+        yPuckSpeed = yPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
+      }
+      
       puckObj.move(xPuckSpeed, yPuckSpeed); //puck moves depending on the speed given from  the above if statements
 
       gameObj.pause();
