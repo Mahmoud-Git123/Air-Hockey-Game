@@ -26,10 +26,7 @@ public class AirHockey{
     Text player1ScoreText = new Text ("0", 25, 8, 250, "WHITE", 2);
 
     Movement movement = new Movement(ballObj1, gameObj);
-
-    double xPuckSpeed = 0;
-    double yPuckSpeed = 0;
-
+    Collisions collisions = new Collisions(0, 0, ballObj2, null, gameObj);
 
 
     //ADDING
@@ -42,9 +39,7 @@ public class AirHockey{
     
     whiteRecObj.setXPosition((gameObj.getWidth() - whiteRecObj.getWidth())/2); //centering the white rectangle
     whiteRecObj.setYPosition((gameObj.getHeight() - whiteRecObj.getHeight())/2); //centering the white rectangle
-    
-
-
+  
     gameObj.addRectangle(blueRecObj); //adding blue rectangle
     gameObj.addRectangle(whiteRecObj); //adding white rectangle
     
@@ -63,58 +58,22 @@ public class AirHockey{
     gameObj.addText(player1ScoreText);
     gameObj.addText(player2ScoreText);
 
-    /*MOVEMENT*/
+
 
 
     while (true){
-      
+
+    /*MOVEMENT*/
+
       //PLAYER 1
       movement.player1Move(ballObj1, gameObj);
       //PLAYER 2
       movement.player2Move(ballObj2, gameObj);
 
-      /*COLLISIONS*/
-
-      //PLAYER 2
-      if (puckObj.collides(ballObj2)){ //if player 2's ball/mallett hits the puck
-
-        //Creating an object of the physics class for player 1, where xpseed 1 and yspeed 1 are the puck's speeds and ball/mallet speeds is 15
-        Physics physicsObjPlayer2 = new Physics(ballObj2.getXPosition(), puckObj.getXPosition(),ballObj2.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
-
-        physicsObjPlayer2.deflect(); //deflection method in phyiscs class
-
-        xPuckSpeed = physicsObjPlayer2.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
-        yPuckSpeed = physicsObjPlayer2.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
-      }
-      
-
-      //PLAYER 1
-      if (puckObj.collides(ballObj1)){ //if player 1's ball/mallet hits the puck
-
-        //Creating an object of the physics class for player 2, where xpseed1 and yspeed1 are the puck's speeds and ball/mallet speeds is 15
-        Physics physicsObjPlayer1 = new Physics(ballObj1.getXPosition(), puckObj.getXPosition(),ballObj1.getYPosition() , puckObj.getYPosition(), 15, xPuckSpeed, 15, yPuckSpeed);
-
-        physicsObjPlayer1.deflect(); //deflection method in phyiscs class
-
-        xPuckSpeed = physicsObjPlayer1.xSpeed2; //setting the x speed of the puck to match the speed in physics class after deflection
-        yPuckSpeed = physicsObjPlayer1.ySpeed2; //setting the y speed of the puck to match the speed in physics class after deflection
-      }
-
-      //Setting puck boundries
-      if (puckObj.getXPosition() < 70 || puckObj.getXPosition() > 830){
-        xPuckSpeed = xPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
-      }      
-
-      if (puckObj.getYPosition() > 405 || puckObj.getYPosition() < 95){
-        yPuckSpeed = yPuckSpeed*-1; //reverses speed causing puck to bounce and go in opposite direction
-      }
-      
-      xPuckSpeed = xPuckSpeed*0.988; //adding friction
-      yPuckSpeed = yPuckSpeed*0.988; //adding friction
-
-      puckObj.move(xPuckSpeed, yPuckSpeed); //puck moves depending on the speed given from  the above if statements
-
-      /*GOALS */
+    /*COLLISIONS*/
+      collisions.collides(puckObj, ballObj1, ballObj2, gameObj);
+ 
+    /*GOALS */
 
       //PLAYER 1
       if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() > 827.5 && puckObj.getXPosition() < 837.5){ //boundies of player 2's goal
@@ -133,8 +92,8 @@ public class AirHockey{
         player1ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
         
         //PUCK/MALLETS ADDING
-        xPuckSpeed = 0;
-        yPuckSpeed =0;
+        //xPuckSpeed = 0;
+        //yPuckSpeed =0;
         puckObj.setXPosition(485); //(900/2) + 35 (center circle radius) = 485
         puckObj.setYPosition(250); //500/2 = 250
 
@@ -168,8 +127,8 @@ public class AirHockey{
         player2ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
         
         //PUCK/MALLETS ADDING
-        xPuckSpeed = 0;
-        yPuckSpeed =0;
+        //xPuckSpeed = 0;
+        //yPuckSpeed =0;
         puckObj.setXPosition(415); //(900/2) - 35 (center circle radius) = 380
         puckObj.setYPosition(250); //500/2 = 250
 
