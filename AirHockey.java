@@ -26,9 +26,9 @@ public class AirHockey{
     Text player1ScoreText = new Text ("0", 25, 8, 250, "WHITE", 2);
 
     Movement movement = new Movement(ballObj1, gameObj);
-    Collisions collisions = new Collisions(0, 0, ballObj2, null, gameObj);
+    Collisions collisions = new Collisions(0, 0, puckObj, ballObj1, ballObj2, gameObj);
 
-
+    
     //ADDING
 
     gameObj.addRectangle(goalObj1); //adding goal rectangle 1
@@ -64,7 +64,6 @@ public class AirHockey{
     while (true){
 
     /*MOVEMENT*/
-
       //PLAYER 1
       movement.player1Move(ballObj1, gameObj);
       //PLAYER 2
@@ -74,77 +73,11 @@ public class AirHockey{
       collisions.collides(puckObj, ballObj1, ballObj2, gameObj);
  
     /*GOALS */
+      //PLAYER 1 SCORES
+      collisions.player1Scores(puckObj, ballObj1, mainText, player1ScoreText, gameObj);
 
-      //PLAYER 1
-      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() > 827.5 && puckObj.getXPosition() < 837.5){ //boundies of player 2's goal
-
-        //PUCK/MALLETS REMOVING
-        gameObj.removeBall(puckObj); //removes puck
-
-        gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
-        gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
-
-
-        //TEXT
-        mainText.setText("Player 1 wins the round!"); //changing text to show player 1 scoring
-        mainText.setColour("GREEN");
-        int x = Integer.valueOf(player1ScoreText.getText()) + 1;  //converting goal value to an integer and adding one to it
-        player1ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
-        
-        //PUCK/MALLETS ADDING
-        //xPuckSpeed = 0;
-        //yPuckSpeed =0;
-        puckObj.setXPosition(485); //(900/2) + 35 (center circle radius) = 485
-        puckObj.setYPosition(250); //500/2 = 250
-
-        ballObj1.setXPosition(175); //resets the position of player 1's  ball/mallet
-        ballObj1.setYPosition(250); //resets the postion of player 1's ball/mallet
-
-        ballObj2.setXPosition(725); //resets the position of player 2's  ball/mallet
-        ballObj2.setYPosition(250); //resets the postion of player 2's ball/mallet
-
-        gameObj.addBall(puckObj); //adding back the puck
-        gameObj.addBall(ballObj1); //adding back player 1
-        gameObj.addBall(ballObj2); //adding back player 2
-
-
-      }
-
-      //PLAYER 2
-      if (puckObj.getYPosition() > 175 && puckObj.getYPosition() < 325 && puckObj.getXPosition() > 62.5 && puckObj.getXPosition() < 72.5){ //boundries of player 1's goal
-
-        //PUCK/MALLETS REMOVING
-        gameObj.removeBall(puckObj); //removes puck
-
-        gameObj.removeBall(ballObj1); //removes player 1's ball/mallet
-        gameObj.removeBall(ballObj2); //removes player 2's ball/mallet
-
-
-        //TEXT
-        mainText.setText("Player 2 wins the round!"); //changing text to show player 2 scoring
-        mainText.setColour("YELLOW");
-        int x = Integer.valueOf(player2ScoreText.getText()) + 1;  //converting value to an integer and adding one to it
-        player2ScoreText.setText(String.valueOf(x)); //setting the score text to the new value
-        
-        //PUCK/MALLETS ADDING
-        //xPuckSpeed = 0;
-        //yPuckSpeed =0;
-        puckObj.setXPosition(415); //(900/2) - 35 (center circle radius) = 380
-        puckObj.setYPosition(250); //500/2 = 250
-
-        ballObj1.setXPosition(175); //resets the position of player 1's  ball/mallet
-        ballObj1.setYPosition(250); //resets the postion of player 1's ball/mallet
-
-        ballObj2.setXPosition(725); //resets the position of player 2's  ball/mallet
-        ballObj2.setYPosition(250); //resets the postion of player 2's ball/mallet
-
-        gameObj.addBall(puckObj); //adding back the puck
-        gameObj.addBall(ballObj1); //adding back player 1
-        gameObj.addBall(ballObj2); //adding back player 2
-
-
-      }
-
+      //PLAYER 2 SCORES
+      collisions.player2Scores(puckObj, ballObj2, mainText, player2ScoreText, gameObj);
       
 
       gameObj.pause();

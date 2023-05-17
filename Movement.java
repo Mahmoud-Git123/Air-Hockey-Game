@@ -9,8 +9,6 @@ public class Movement {
         this.ballPlayer1 = ballPlayer1;
         this.ballPlayer2 = ballPlayer2;
         this.gameArena = gameArena;
-        
-    
     }
 
     public void player1Move(Ball ballPlayer1, GameArena game){    
@@ -63,7 +61,5 @@ public class Movement {
             ballPlayer2.move(0, 6); //ball moves 6 in positive y direction (i.e. downwards)
         }
       }
-    }
-    
-    
+    } 
 }
