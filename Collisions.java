@@ -33,6 +33,7 @@ public class Collisions{
     this.puck = puck;
   }
 
+
   //Method to ask user for the maximum score which indicates when the game ends
   public void scoreLimit(){
     Scanner input = new Scanner(System.in);

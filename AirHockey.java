@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class AirHockey{
   public static void main (String args[]){
     //CREATING OBJECTS
@@ -29,6 +31,9 @@ public class AirHockey{
     Movement movement = new Movement(ballObj1, gameObj);
     Collisions collisions = new Collisions(0, 0, puckObj, ballObj1, ballObj2, gameObj);
     
+    File fanfare = new File("fanfare.WAV");
+
+  
     //ADDING
 
     gameObj.addRectangle(goalObj1); //adding goal rectangle 1
@@ -63,8 +68,10 @@ public class AirHockey{
 
 
     collisions.scoreLimit();
-    
+
     while (true){
+
+      Sound.playSound(fanfare);
 
       collisions.soundMute(gameObj);
 
