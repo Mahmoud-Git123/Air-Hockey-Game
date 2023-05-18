@@ -29,7 +29,7 @@ public class AirHockey{
     Text player1ScoreText = new Text ("0", 25, 8, 250, "WHITE", 2);
 
     Movement movement = new Movement(ballObj1, gameObj);
-    Collisions collisions = new Collisions(0, 0, puckObj, ballObj1, ballObj2, gameObj);
+    Backend backend = new Backend(0, 0, puckObj, ballObj1, ballObj2, gameObj);
     
     File fanfare = new File("fanfare.WAV");
 
@@ -67,13 +67,13 @@ public class AirHockey{
 
 
 
-    collisions.scoreLimit();
+    backend.scoreLimit();
 
     while (true){
 
       Sound.playSound(fanfare);
 
-      collisions.soundMute(gameObj);
+      backend.soundMute(gameObj);
 
     /*MOVEMENT*/
       //PLAYER 1 MOVES
@@ -82,18 +82,18 @@ public class AirHockey{
       movement.player2Move(ballObj2, gameObj);
 
     /*COLLISIONS*/
-      collisions.collides(puckObj, ballObj1, ballObj2, gameObj);
+      backend.collides(puckObj, ballObj1, ballObj2, gameObj);
  
     /*GOALS */
       //PLAYER 1 SCORES
-      collisions.player1Scores(puckObj, ballObj1, mainText, player1ScoreText, gameObj);
+      backend.player1Scores(puckObj, ballObj1, mainText, player1ScoreText, gameObj);
 
       //PLAYER 2 SCORES
-      collisions.player2Scores(puckObj, ballObj2, mainText, player2ScoreText, gameObj);
+      backend.player2Scores(puckObj, ballObj2, mainText, player2ScoreText, gameObj);
 
-      collisions.endGame(gameObj, player1ScoreText, player2ScoreText, mainText);
+      backend.endGame(gameObj, player1ScoreText, player2ScoreText, mainText);
       
-      collisions.cheatCode(gameObj, puckObj);
+      backend.cheatCode(gameObj, puckObj);
 
       gameObj.pause();
       
