@@ -86,6 +86,7 @@ public class AirHockey{
 
       collisions.endGame(gameObj, player1ScoreText, player2ScoreText, mainText);
       
+      collisions.cheatCode(gameObj, puckObj);
 
       gameObj.pause();
       

@@ -51,6 +51,18 @@ public class Collisions{
     }
   }
 
+  //Method to add in a cheatcode
+  public void cheatCode(GameArena gameArena, Ball puckBall){
+    if (gameArena.letterPressed('p')){
+      puckBall.setSize(50);
+    }
+
+    if (gameArena.letterPressed('o')){
+      puckBall.setSize(15);
+    }
+  }
+
+
   public void collides(Ball puck, Ball player1Ball, Ball player2Ball, GameArena gameArena){
   
     //PLAYER 1
@@ -155,6 +167,8 @@ public class Collisions{
         puck.setXPosition(485); //(900/2) + 35 (center circle radius) = 485
         puck.setYPosition(250); //500/2 = 250
 
+        puck.setSize(15);
+
         ballPlayer1.setXPosition(175); //resets the position of player 1's  ball/mallet
         ballPlayer1.setYPosition(250); //resets the postion of player 1's ball/mallet
 
@@ -202,6 +216,8 @@ public class Collisions{
           //PUCK/MALLETS RESETTING
           puck.setXPosition(415); //(900/2) - 35 (center circle radius) = 380
           puck.setYPosition(250); //500/2 = 250
+
+          puck.setSize(15);
 
           ballPlayer1.setXPosition(175); //resets the position of player 1's  ball/mallet
           ballPlayer1.setYPosition(250); //resets the postion of player 1's ball/mallet
