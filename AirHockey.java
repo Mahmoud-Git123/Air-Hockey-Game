@@ -21,13 +21,13 @@ public class AirHockey{
     Line lineObj = new Line (450, 87.5, 450, 412.5, 1, "BLUE", 1);
     
     Text mainText = new Text ("Welcome to Air Hockey!", 20, 50, 50, "WHITE", 1);
+    Text muteText = new Text ("Press 'M' key to mute and 'N' key to unmute", 12, 50, 60, "WHITE", 1);
 
     Text player2ScoreText = new Text ("0", 25, 860, 250, "WHITE", 2);
     Text player1ScoreText = new Text ("0", 25, 8, 250, "WHITE", 2);
 
     Movement movement = new Movement(ballObj1, gameObj);
     Collisions collisions = new Collisions(0, 0, puckObj, ballObj1, ballObj2, gameObj);
-
     
     //ADDING
 
@@ -44,6 +44,8 @@ public class AirHockey{
     gameObj.addRectangle(whiteRecObj); //adding white rectangle
     
     gameObj.addText(mainText); //adding text
+
+    gameObj.addText(muteText);
     
     gameObj.addBall(ballObj1); //adding ball 1
     gameObj.addBall(ballObj2); //adding ball 2
@@ -60,13 +62,16 @@ public class AirHockey{
 
 
 
-
+    collisions.scoreLimit();
+    
     while (true){
 
+      collisions.soundMute(gameObj);
+
     /*MOVEMENT*/
-      //PLAYER 1
+      //PLAYER 1 MOVES
       movement.player1Move(ballObj1, gameObj);
-      //PLAYER 2
+      //PLAYER 2 MOVES
       movement.player2Move(ballObj2, gameObj);
 
     /*COLLISIONS*/
@@ -78,6 +83,8 @@ public class AirHockey{
 
       //PLAYER 2 SCORES
       collisions.player2Scores(puckObj, ballObj2, mainText, player2ScoreText, gameObj);
+
+      collisions.endGame(gameObj, player1ScoreText, player2ScoreText, mainText);
       
 
       gameObj.pause();
