@@ -29,3 +29,7 @@ before starting the game, the user is prompted to enter the maximum game score w
 
 **Playing again:**
 Once the maximum score is reached a winner is anounced and the user is prompted to play again if they wish
+
+**Players:**
+Player 1: uses "WASD" controls
+Player 2: uses regular arrow controls
