@@ -68,10 +68,11 @@ public class AirHockey{
 
 
     backend.scoreLimit();
+    
+    Sound.playSound(fanfare);
 
     while (true){
 
-      Sound.playSound(fanfare);
 
       backend.soundMute(gameObj);
 
