@@ -238,6 +238,8 @@ public class Backend{
     if (player1Score == (scoreLimit - 1) || player2Score == (scoreLimit - 1)){
 
       if (gameArena.spacePressed()){
+
+        Sound.playSound(fanfare);
         
         player1ScoreText.setText("0"); //setting the score text to 0
         player2ScoreText.setText("0"); //setting the score text to 0
