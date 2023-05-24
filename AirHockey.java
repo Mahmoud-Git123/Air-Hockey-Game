@@ -99,15 +99,9 @@ public class AirHockey{
       gameObj.pause();
       
     }
-
-
-    
-      
-    
     
   }
 }
     
           
-                                
-      
+            
