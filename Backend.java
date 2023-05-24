@@ -18,11 +18,11 @@ public class Backend{
   private boolean muteSound = false;
 
   //Adding the sound files to be used/played later
-  File hit = new File("hit.WAV");
-  File drumroll = new File("drumroll.WAV");
-  File fanfare = new File("fanfare.WAV");
-  File applause = new File("applause.WAV");
-  File bounce = new File("bounce.WAV");
+  private File hit = new File("hit.WAV");
+  private File drumroll = new File("drumroll.WAV");
+  private File fanfare = new File("fanfare.WAV");
+  private File applause = new File("applause.WAV");
+  private File bounce = new File("bounce.WAV");
 
   //collisions constructor
   public Backend(double xPuckSpeed, double yPuckSpeed, Ball puck, Ball ballPlayer1, Ball ballPlayer2, GameArena gameArena){
@@ -156,7 +156,8 @@ public class Backend{
 
         else{
           mainText.setColour("WHITE");
-          mainText.setText("Player 1 wins with " + scoreLimit + " points! Press space to start a new game");          
+          mainText.setText("Player 1 wins with " + scoreLimit + " points! Press space to start a new game");         
+          Sound.playSound(drumroll); 
           gameArena.pause();
 
         }
@@ -207,6 +208,7 @@ public class Backend{
           else{
             mainText.setColour("WHITE");
             mainText.setText("Player 2 wins with " + scoreLimit + " points! Press space to start a new game");
+            Sound.playSound(drumroll);
             gameArena.pause();
 
           }
@@ -235,12 +237,6 @@ public class Backend{
   public void endGame(GameArena gameArena, Text player1ScoreText, Text player2ScoreText, Text mainText){
     if (player1Score == (scoreLimit - 1) || player2Score == (scoreLimit - 1)){
 
-      //if sound is not muted, play the sound
-      if (muteSound == false) {
-        Sound.playSound(drumroll);
-      }
-
-
       if (gameArena.spacePressed()){
         
         player1ScoreText.setText("0"); //setting the score text to 0
@@ -260,7 +256,6 @@ public class Backend{
       }
     }
   }
-
   //Setter methods to change puck's X and Y speed
   public void setPuckXSpeed(double xPuckSpeed){
     this.xPuckSpeed = xPuckSpeed;
