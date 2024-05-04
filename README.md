@@ -1,5 +1,4 @@
-# SCC110-FinalProject
-Project 2: Air Hockey
+**AIR HOCKEY** Game - Author: Mahmoud A.
 
 **Classes:**
 AirHockey class: which includes the main method. - this is the class that should be run.
